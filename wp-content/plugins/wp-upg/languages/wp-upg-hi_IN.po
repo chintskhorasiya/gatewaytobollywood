@@ -1,0 +1,399 @@
+# Copyright (C) 2016 User Photo Gallery
+# This file is distributed under the same license as the User Photo Gallery package.
+msgid ""
+msgstr ""
+"Project-Id-Version: User Photo Gallery 0.0.8\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/wp-upg\n"
+"POT-Creation-Date: 2017-08-03 17:45+0545\n"
+"PO-Revision-Date: 2017-08-03 17:46+0545\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: hi_IN\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 2.0.2\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: layout/catalog.php:95 layout/wppost.php:72
+msgid "Layout Not Found. Check Settings and save update again."
+msgstr "लेआउट नहीं मिला। सेटिंग्स की जाँच करें और अद्यतन फिर से सहेजें।"
+
+#: layout/edit.php:63
+msgid "UPG Post Preview Layout"
+msgstr ""
+
+#: layout/edit.php:65
+msgid "UPG Post Thumbnail Grid Layout"
+msgstr ""
+
+#: layout/edit.php:67
+msgid "UPG Post Pick Layout"
+msgstr ""
+
+#: layout/pick.php:48
+msgid "Pick Layout Not Found."
+msgstr ""
+
+#: layout/pick.php:53
+msgid "Post Not found."
+msgstr ""
+
+#: layout/post_image.php:27 libs/custom_column.php:9
+msgid "Title"
+msgstr "पोस्ट शीर्शक"
+
+#: layout/post_image.php:28 layout/post_subimage.php:98
+#: layout/post_youtube.php:30
+msgid "Post Title"
+msgstr ""
+
+#: layout/post_image.php:66
+msgid "Description"
+msgstr ""
+
+#: layout/post_image.php:68 layout/post_subimage.php:138
+#: layout/post_youtube.php:69
+msgid "Post Content"
+msgstr ""
+
+#: layout/post_image.php:83 layout/post_youtube.php:84
+#, fuzzy
+#| msgid "Select Album"
+msgid "Select Album/Group"
+msgstr "एल्बम चयन करें"
+
+#: layout/post_image.php:93 layout/post_subimage.php:154
+msgid "Select Image"
+msgstr ""
+
+#: layout/post_image.php:96
+msgid "Only Images are allowed."
+msgstr ""
+
+#: layout/post_image.php:97
+msgid "Maximum upload file size limit to"
+msgstr ""
+
+#: layout/post_image.php:196
+msgid "Your Image is successfully posted."
+msgstr ""
+
+#: layout/post_image.php:197
+msgid "Click here to view"
+msgstr "छवि देखें"
+
+#: layout/post_image.php:202
+msgid "Your submission is under review."
+msgstr ""
+
+#: layout/post_subimage.php:65
+msgid "Image Posted Successfully"
+msgstr ""
+
+#: layout/post_subimage.php:72
+msgid ""
+"Image Posted but under review. Administrator will review your image before "
+"it is displayed."
+msgstr ""
+
+#: layout/post_subimage.php:97
+msgid "Picture Title"
+msgstr "चित्र शीर्षक"
+
+#: layout/post_subimage.php:136
+msgid "Picture Description"
+msgstr ""
+
+#: layout/post_youtube.php:29
+msgid "Youtube Title"
+msgstr "Youtube शीर्षक"
+
+#: layout/post_youtube.php:67
+msgid "Youtube Description"
+msgstr ""
+
+#: layout/post_youtube.php:89
+msgid "Youtube URL"
+msgstr ""
+
+#: layout/post_youtube.php:90
+msgid "copy/paste Youtube URL"
+msgstr ""
+
+#: layout/post_youtube.php:202
+msgid "Your Youtube Video is sucessfully posted."
+msgstr ""
+
+#: layout/post_youtube.php:209
+msgid "Your Youtube submission is under review"
+msgstr ""
+
+#: libs/custom_column.php:10
+msgid "Author"
+msgstr "लेखक"
+
+#: libs/custom_column.php:11
+msgid "Category"
+msgstr ""
+
+#: libs/custom_column.php:12
+msgid "Image Layout"
+msgstr ""
+
+#: libs/custom_column.php:13
+msgid "Thumbnail"
+msgstr ""
+
+#: libs/custom_column.php:14
+msgid ""
+"<span class=\"vers\"><div title=\"Comments\" class=\"comment-grey-bubble\"></"
+"div></span>"
+msgstr ""
+
+#: libs/custom_column.php:15
+msgid "Date"
+msgstr ""
+
+#: libs/custom_column.php:70
+msgid "--"
+msgstr ""
+
+#: libs/install.php:122
+msgid "User Post Gallery"
+msgstr ""
+
+#: libs/install.php:123
+msgid "UPG Post"
+msgstr ""
+
+#: libs/install.php:124
+msgid "Add "
+msgstr ""
+
+#: libs/install.php:125 libs/install.php:175 libs/install.php:199
+msgid "Add New "
+msgstr ""
+
+#: libs/install.php:126 libs/install.php:173
+msgid "Edit "
+msgstr ""
+
+#: libs/install.php:127 libs/install.php:176
+msgid "New "
+msgstr ""
+
+#: libs/install.php:128
+msgid "View "
+msgstr ""
+
+#: libs/install.php:129 libs/install.php:169
+msgid "Search "
+msgstr ""
+
+#: libs/install.php:130 libs/install.php:131
+msgid "No "
+msgstr ""
+
+#: libs/install.php:133
+msgid "Featured Icon/Logo"
+msgstr ""
+
+#: libs/install.php:134
+msgid "Set featured Logo"
+msgstr ""
+
+#: libs/install.php:135
+msgid "Remove Logo"
+msgstr ""
+
+#: libs/install.php:167
+#, fuzzy
+#| msgid "Select Album"
+msgid " Albums"
+msgstr "एल्बम चयन करें"
+
+#: libs/install.php:168
+#, fuzzy
+#| msgid "Select Album"
+msgid " Album"
+msgstr "एल्बम चयन करें"
+
+#: libs/install.php:170
+msgid "All "
+msgstr ""
+
+#: libs/install.php:171 libs/install.php:172
+msgid "Parent "
+msgstr ""
+
+#: libs/install.php:174
+msgid "Update "
+msgstr ""
+
+#: libs/install.php:177
+#, fuzzy
+#| msgid "Select Album"
+msgid "  Albums"
+msgstr "एल्बम चयन करें"
+
+#: libs/install.php:191 libs/install.php:193 libs/install.php:201
+msgid " Tags"
+msgstr ""
+
+#: libs/install.php:192
+msgid " Tag"
+msgstr ""
+
+#: libs/install.php:194
+msgid " All Tags"
+msgstr ""
+
+#: libs/install.php:195
+msgid "Parent Tag"
+msgstr ""
+
+#: libs/install.php:196
+msgid "Parent Tag:"
+msgstr ""
+
+#: libs/install.php:197
+msgid "Edit Tag"
+msgstr ""
+
+#: libs/install.php:198
+msgid "Update Tag"
+msgstr ""
+
+#: libs/install.php:200
+msgid "New Tag Name"
+msgstr ""
+
+#: libs/metabox.php:8
+msgid "Main Image/Youtube"
+msgstr ""
+
+#: libs/metabox.php:10
+msgid "Image Preview Layout"
+msgstr ""
+
+#: libs/metabox.php:12
+msgid "Extra Custom Fields"
+msgstr ""
+
+#: libs/metabox.php:89
+msgid "Upload Image"
+msgstr ""
+
+#: libs/metabox.php:91
+msgid "Post Youtube URL"
+msgstr ""
+
+#: libs/metabox.php:127 libs/metabox.php:202
+msgid "Remove image"
+msgstr ""
+
+#: libs/metabox.php:142
+msgid "Add gallery images"
+msgstr ""
+
+#: libs/metabox.php:177
+msgid "Add Sub-Images to Gallery"
+msgstr ""
+
+#: libs/metabox.php:179
+msgid "Add to gallery"
+msgstr ""
+
+#: libs/taxonomy.php:7
+msgid "Hide at Front end during submission"
+msgstr ""
+
+#: libs/taxonomy.php:21
+msgid "Hide at Front End"
+msgstr ""
+
+#: libs/taxonomy.php:47
+msgid "Hide"
+msgstr ""
+
+#: setting.php:22
+msgid "Settings"
+msgstr ""
+
+#: setting.php:28
+msgid "IMP Settings"
+msgstr ""
+
+#: setting.php:42
+msgid "Sub Images"
+msgstr ""
+
+#: setting.php:48
+msgid "Display Sub-Image Gallery at "
+msgstr ""
+
+#: setting.php:56
+msgid "Other Settings"
+msgstr ""
+
+#: setting.php:66
+msgid "Primary Images"
+msgstr ""
+
+#: setting.php:73
+msgid "Quick Settings"
+msgstr ""
+
+#: setting.php:81
+msgid "Custom Extra Fields"
+msgstr ""
+
+#: setting.php:89
+msgid "Global Settings"
+msgstr ""
+
+#: setting.php:106
+msgid "3rd Party Shortcode"
+msgstr ""
+
+#: setting.php:113
+msgid "Shortcode for Position 1st"
+msgstr ""
+
+#: setting.php:120
+msgid "Shortcode for Position 2nd"
+msgstr ""
+
+#: setting.php:168
+msgid ""
+"You can include any other plugin shortcode or message. Eg. social share, "
+"buttons, notices<br><br><b>Position 1st</b> = Just above the image "
+"preview<br><b>Position 2nd</b>=Just below the image preview.<br>"
+msgstr ""
+
+#: setting.php:426
+msgid "Primary Images are listed as post at UPG."
+msgstr ""
+
+#: setting.php:435
+msgid ""
+"Sub Images is specially used if you like to show gallery on different "
+"post_type(plugins) content."
+msgstr ""
+
+#: setting.php:481
+msgid "Common Settings"
+msgstr ""
+
+#: setting.php:484
+msgid "Primary-Image Gallery"
+msgstr ""
+
+#: setting.php:486
+msgid "Sub-Image Gallery"
+msgstr ""
+
+#: setting.php:487
+msgid "Other's Plugin Shortcode"
+msgstr ""
