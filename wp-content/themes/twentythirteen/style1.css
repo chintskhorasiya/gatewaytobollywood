@@ -2210,7 +2210,7 @@ transition-duration:.3s
 	width:auto !important;
 	border-radius: 5px;
     padding:5px 7px;
-	    margin: 0px 165px 0px 0px;
+	    margin: 0px 50px 0px 0px;
 }
 #progressbar li:last-child {
 	margin-right:0px;

@@ -75,6 +75,7 @@ function artist_profile_timeline_html(){
             <li <?php if($stage >= 1) echo 'class="active"'; ?>><?php if($stage >= 1){ ?><a class="timeline-link" href="<?php echo get_page_link($options['gateway_bollywood_field_profile_page']) ?>"> <?php } ?>Account Informations<?php if($stage >= 1){ ?></a><?php } ?></li>
             <li <?php if($stage >= 2) echo 'class="active"'; ?>><?php if($stage >= 2){ ?><a class="timeline-link" href="<?php echo get_page_link($options['gateway_bollywood_field_profileinterest_page']) ?>"> <?php } ?>Interests<?php if($stage >= 1){ ?></a><?php } ?></li>
             <li <?php if($stage >= 3) echo 'class="active"'; ?>><?php if($stage >= 3){ ?><a class="timeline-link" href="<?php echo get_page_link($options['gateway_bollywood_field_profileexperience_page']) ?>"> <?php } ?>Work Experiences<?php if($stage >= 1){ ?></a><?php } ?></li>
+            <li <?php if($stage >= 4) echo 'class="active"'; ?>><?php if($stage >= 3){ ?><a class="timeline-link" href="<?php echo get_page_link($options['gateway_bollywood_field_profilepayment_page']) ?>"> <?php } ?>Prime Membership<?php if($stage >= 1){ ?></a><?php } ?></li>
         </ul>
     </div>
 <?php

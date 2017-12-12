@@ -196,6 +196,9 @@ add_shortcode('artist_resetpassword', 'artist_resetpassword_html');
 add_shortcode('artist_profile', 'artist_profile_html');
 add_shortcode('artist_profile_interests', 'artist_profile_interests_html');
 add_shortcode('artist_profile_experience', 'artist_profile_experience_html');
+add_shortcode('artist_profile_payment', 'artist_profile_payment_html');
+add_shortcode('artist_profile_payment_success', 'artist_profile_payment_success_html');
+add_shortcode('artist_profile_payment_failed', 'artist_profile_payment_failed_html');
 
 /**
  * @internal never define functions inside callbacks.
@@ -298,6 +301,20 @@ function gateway_bollywood_settings_init() {
  'gateway_bollywood_section_developers',
  [
  'label_for' => 'gateway_bollywood_field_profileexperience_page',
+ 'class' => 'gateway_bollywood_row',
+ 'gateway_bollywood_custom_data' => 'custom',
+ ]
+ );
+
+ add_settings_field(
+ 'gateway_bollywood_field_profilepayment_page', // as of WP 4.6 this value is used only internally
+ // use $args' label_for to populate the id inside the callback
+ __( 'Profile Payment Page for Artist', 'gateway_bollywood' ),
+ 'gateway_bollywood_field_page',
+ 'gateway_bollywood',
+ 'gateway_bollywood_section_developers',
+ [
+ 'label_for' => 'gateway_bollywood_field_profilepayment_page',
  'class' => 'gateway_bollywood_row',
  'gateway_bollywood_custom_data' => 'custom',
  ]
@@ -431,6 +448,9 @@ require_once(GATEWAYBOLLYWOOD_ROOTDIR . 'artist-profile.php');
 require_once(GATEWAYBOLLYWOOD_ROOTDIR . 'artist-profile-timeline.php');
 require_once(GATEWAYBOLLYWOOD_ROOTDIR . 'artist-profile-interests.php');
 require_once(GATEWAYBOLLYWOOD_ROOTDIR . 'artist-profile-experience.php');
+require_once(GATEWAYBOLLYWOOD_ROOTDIR . 'artist-profile-payment.php');
+require_once(GATEWAYBOLLYWOOD_ROOTDIR . 'artist-profile-payment-success.php');
+require_once(GATEWAYBOLLYWOOD_ROOTDIR . 'artist-profile-payment-failed.php');
 require_once(GATEWAYBOLLYWOOD_ROOTDIR . 'fields-list.php');
 require_once(GATEWAYBOLLYWOOD_ROOTDIR . 'fields-create.php');
 require_once(GATEWAYBOLLYWOOD_ROOTDIR . 'fields-update.php');
