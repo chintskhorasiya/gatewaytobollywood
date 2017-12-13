@@ -86,6 +86,18 @@ function gb_options_install() {
 
     dbDelta($sql5);
 
+    $table_name6 = $wpdb->prefix . "gateway_bollywood_profile_payments";
+    $sql6 = "CREATE TABLE $table_name3 (
+    		`user_id` INT(11) NOT NULL ,
+    		`plan` VARCHAR(255) NOT NULL ,
+    		`amount` VARCHAR(255) NOT NULL,
+    		`txnid` VARCHAR(255) NOT NULL,
+    		`status` VARCHAR(255) NOT NULL,
+    		`date_paid` DATE NOT NULL
+    		) ENGINE = InnoDB;";
+
+    dbDelta($sql6);
+
 }
 
 // run the install scripts upon plugin activation
@@ -237,6 +249,20 @@ function gateway_bollywood_settings_init() {
  );*/
 
  add_settings_field(
+ 'gateway_bollywood_field_payumoney_mode', // as of WP 4.6 this value is used only internally
+ // use $args' label_for to populate the id inside the callback
+ __( 'PayUMoney Mode', 'gateway_bollywood' ),
+ 'gateway_bollywood_field_payumoney_mode_cb',
+ 'gateway_bollywood',
+ 'gateway_bollywood_section_developers',
+ [
+ 'label_for' => 'gateway_bollywood_field_payumoney_mode',
+ 'class' => 'gateway_bollywood_row',
+ 'gateway_bollywood_custom_data' => 'custom',
+ ]
+ );
+
+ add_settings_field(
  'gateway_bollywood_field_registration_page', // as of WP 4.6 this value is used only internally
  // use $args' label_for to populate the id inside the callback
  __( 'Registration Page for Artist', 'gateway_bollywood' ),
@@ -379,6 +405,31 @@ function gateway_bollywood_field_pill_cb( $args ) {
  </p>
  <p class="description">
  <?php esc_html_e( 'You take the red pill and you stay in Wonderland and I show you how deep the rabbit-hole goes.', 'gateway_bollywood' ); ?>
+ </p>
+ <?php
+}
+
+function gateway_bollywood_field_payumoney_mode_cb( $args ) {
+ // get the value of the setting we've registered with register_setting()
+ $options = get_option( 'gateway_bollywood_options' );
+ // output the field
+ ?>
+ <select id="<?php echo esc_attr( $args['label_for'] ); ?>"
+ data-custom="<?php echo esc_attr( $args['gateway_bollywood_custom_data'] ); ?>"
+ name="gateway_bollywood_options[<?php echo esc_attr( $args['label_for'] ); ?>]"
+ >
+ <option value="sandbox" <?php echo isset( $options[ $args['label_for'] ] ) ? ( selected( $options[ $args['label_for'] ], 'sandbox', false ) ) : ( '' ); ?>>
+ <?php esc_html_e( 'sandbox', 'gateway_bollywood' ); ?>
+ </option>
+ <option value="live" <?php echo isset( $options[ $args['label_for'] ] ) ? ( selected( $options[ $args['label_for'] ], 'live', false ) ) : ( '' ); ?>>
+ <?php esc_html_e( 'Live', 'gateway_bollywood' ); ?>
+ </option>
+ </select>
+ <p class="description">
+ <?php esc_html_e( 'You can set sandbox to test payments with test credit cards.', 'gateway_bollywood' ); ?>
+ </p>
+ <p class="description">
+ <?php esc_html_e( 'If you are ready to go for live payments , select "Live"', 'gateway_bollywood' ); ?>
  </p>
  <?php
 }

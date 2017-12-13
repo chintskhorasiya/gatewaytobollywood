@@ -52,7 +52,27 @@ $artistFirstData = get_user_by('id', $artistId);
 			        <?php if($artistId == $user_ID): ?>
 			        	<a class="btn" href="<?php echo get_page_link($gateway_options['gateway_bollywood_field_profile_page']); ?>">Edit Profile</a>
 			        	<a class="btn" href="<?php echo site_url() ?>/artist-dashboard">Dashboard</a>
-			        	<a class="btn" href="<?php echo site_url() ?>/plan">Upgrade</a>
+			        	<?php
+			        	global $wpdb;
+		                $profile_status_table_name = $wpdb->prefix . "gateway_bollywood_profile_status";
+		                $profile_status_data = $wpdb->get_row("SELECT user_id,status from $profile_status_table_name where `user_id`='".$user_ID."'");
+		                if(!empty($profile_status_data)){
+		                    $profile_status_data_status = (int)$profile_status_data->status;
+		                    if($profile_status_data_status < 4){
+                        	?>
+			        			<a class="btn" href="<?php echo site_url() ?>/profile-payment">Upgrade to Prime</a><?php
+			        		} else {
+			        			?>
+			        			<a class="btn" href="#">Prime Member</a>
+			        			<?php
+			        		}
+			        	} else {
+		        			?>
+		        			<a class="btn" href="<?php echo site_url() ?>/profile-payment">Upgrade to Prime</a>
+		        			<?php
+		        		}
+			        	?>
+
 			        <?php endif; ?>
 			    </div>
 			</div>

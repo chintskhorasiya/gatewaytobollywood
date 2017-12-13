@@ -22,7 +22,14 @@ function artist_profile_payment_failed_html(){
             $key=$_POST["key"];
             $productinfo=$_POST["productinfo"];
             $email=$_POST["email"];
-            $salt="AqBa84k36H";
+
+            $options = get_option( 'gateway_bollywood_options' );
+            
+            if($options['gateway_bollywood_field_payumoney_mode'] == "live"){
+                $salt="CWFkYeCu1n";
+            } else {
+                $salt="AqBa84k36H";   
+            }
 
             if(isset($_POST["additionalCharges"])) {
                    $additionalCharges=$_POST["additionalCharges"];
