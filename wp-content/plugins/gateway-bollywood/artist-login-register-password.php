@@ -1,13 +1,13 @@
 <?php
 
-function registration_form( $username, $password, $email, $website, $first_name, $last_name, $nickname, $bio, $role, $mobileno ) {
+function registration_form( $username, $password, $email, $website, $first_name, $last_name, $nickname, $bio, $role, $mobileno) {
 
     //print_r($_POST);
     //var_dump($mobileno);
     $options = get_option( 'gateway_bollywood_options' );
  
     echo '
-    <form class="register-form" action="' . $_SERVER['REQUEST_URI'] . '" method="post">
+    <form class="register-form" action="' . $_SERVER['REQUEST_URI'] . '" method="post" enctype="multipart/form-data">
     <div>
     <label for="role">Type <strong>*</strong></label>
     <input type="radio" name="role" value="1" '. ( (!empty($_POST['role']) && $_POST['role'] == "1" ) ? 'checked="checked"' : '' ) .' /> Talent
@@ -55,6 +55,13 @@ function registration_form( $username, $password, $email, $website, $first_name,
     <label for="mobileno">Mobile no.</label>
     <input type="number" name="mobileno" value="' . ( isset( $_POST['mobileno']) ? $mobileno : null ) . '">
     </div>
+
+    <div>
+    <label for="photo">Profile Photo*</label>
+    <input type="file" name="user_meta_image" id="user_meta_image" value="'.(!empty($_POST['user_meta_image']) ? $_POST['user_meta_image'] : null ).'">
+    <span>(Max Width:450px and Max Height:400px)</span>
+    </div>
+
     <div class="clear"></div>
     <div><input type="submit" name="submit" value="Register"/>Already Registered as Artist ! Please <a href="'.get_page_link($options['gateway_bollywood_field_login_page']).'">login</a> here.</div>
     </form>
@@ -68,7 +75,7 @@ function registration_form( $username, $password, $email, $website, $first_name,
     </div>
 */
 
-function registration_validation( $username, $password, $email, $website, $first_name, $last_name, $nickname, $bio ,$role, $mobileno)  {
+function registration_validation( $username, $password, $email, $website, $first_name, $last_name, $nickname, $bio ,$role, $mobileno, $user_meta_image)  {
     global $reg_errors;
     $reg_errors = new WP_Error;
 
@@ -114,6 +121,69 @@ function registration_validation( $username, $password, $email, $website, $first
             $reg_errors->add( 'mobileno', 'Mobile Number is not valid' );
         }
     }
+
+    // user image validation
+    //var_dump($user_meta_image);exit;
+    $photo_error = array();
+    $uploaddir = ABSPATH . 'wp-content/uploads/profilephotos/';
+    $allowed_ext = "jpg, gif, png";
+    $max_size = (1024*1024)*2; // 2MB
+    $max_height = '400';
+    $max_width = '450';
+
+    // Check mime types are allowed  
+    $extension = pathinfo($user_meta_image['name']);  
+    $extension = $extension['extension'];
+    $allowed_paths = explode(", ", $allowed_ext);
+    for($i = 0; $i < count($allowed_paths); $i++) {  
+        if ($allowed_paths[$i] == $extension) {
+            $ok = "1";  
+        }
+    }
+
+    if ($ok == "1") {  
+        if($user_meta_image['size'] > $max_size)  
+        {  
+            $reg_errors->add( 'user-image-size', 'Profile Photo size is too big!' );  
+            //$photo_error = true;
+            array_push($photo_error, 1);
+        }
+
+        // Check Height & Width  
+        if ($max_width && $max_height) {  
+            list($width, $height, $type, $w) = getimagesize($user_meta_image['tmp_name']);  
+            if($width > $max_width || $height > $max_height)  
+            {  
+                $reg_errors->add( 'user-image-height-width', 'Image is too big! max allowable width is&nbsp;' . $max_width .'px and max allowable height is&nbsp;' . $max_height .'px' );  
+                array_push($photo_error, 2);
+            } 
+        } 
+
+        //var_dump($photo_error);
+
+        /*if(count($photo_error) <= 0) {
+            $image_name=time().'.'.$extension;
+            // Rename file and move to folder
+            
+            $target = $uploaddir.$user_ID.'/';
+            wp_mkdir_p( $target );
+
+            $newname=$target.$image_name;
+            //var_dump($newname);exit;  
+            if(is_uploaded_file($user_meta_image['tmp_name']))  
+            { 
+                move_uploaded_file($user_meta_image['tmp_name'], $newname);
+                update_user_meta( $user_ID, 'user_meta_image', $image_name); 
+                //echo 'Photo uploaded!<br>'; 
+            }  
+        }*/
+    }  else {
+        $reg_errors->add( 'user-image-type', 'Profile Photo should be required and image type only (jpg, gif, png)!' );  
+        array_push($photo_error, 3);
+    }
+
+
+    ///////
 
     if ( is_wp_error( $reg_errors ) ) {
      
@@ -168,7 +238,8 @@ if ( !function_exists('custom_new_user_notification') ) {
 }
 
 function complete_registration() {
-    global $reg_errors, $username, $password, $email, $website, $first_name, $last_name, $nickname, $bio, $role, $mobileno;
+    //echo "in complete_registration";exit;
+    global $reg_errors, $username, $password, $email, $website, $first_name, $last_name, $nickname, $bio, $role, $mobileno, $user_meta_image;
     
     $options = get_option( 'gateway_bollywood_options' );
 
@@ -198,10 +269,32 @@ function complete_registration() {
             // mobile save [[CUSTOM]]
             update_user_meta($user, 'mobileno', $mobileno);
             //
+
+            // profile photo save
+            //echo "here";exit;
+            $extension = pathinfo($user_meta_image['name']);  
+            $extension = $extension['extension'];
+            $image_name=time().'.'.$extension;
+            // Rename file and move to folder
+            $uploaddir = ABSPATH . 'wp-content/uploads/profilephotos/';
+            $target = $uploaddir.$user.'/';
+            wp_mkdir_p( $target );
+
+            $newname=$target.$image_name;
+            //var_dump($newname);exit;  
+            if(is_uploaded_file($user_meta_image['tmp_name']))  
+            { 
+                move_uploaded_file($user_meta_image['tmp_name'], $newname);
+                update_user_meta( $user, 'user_meta_image', $image_name); 
+                //echo 'Photo uploaded!<br>'; 
+            }
+            // profile photo save
+
             custom_new_user_notification($user, $password, $role);
         }
 
-        echo 'Registration complete. You need to wait for admin approval, once you approved by Admin you can <a href="'.get_page_link($options['gateway_bollywood_field_login_page']).'">login</a> with your login credentials.';   
+        //echo 'Registration complete. You need to wait for admin approval, once you approved by Admin you can <a href="'.get_page_link($options['gateway_bollywood_field_login_page']).'">login</a> with your login credentials.'; 
+        echo 'Thanks for signed in to GATEWAY TO BOLLYWOOD.​';
     }
 }
 
@@ -217,11 +310,12 @@ function artist_login_register_password_html() {
         $_POST['nickname'],
         $_POST['bio'],
         $_POST['role'],
-        $_POST['mobileno']
+        $_POST['mobileno'],
+        $_FILES['user_meta_image']
         );
          
         // sanitize user form input
-        global $username, $password, $email, $website, $first_name, $last_name, $nickname, $bio, $role, $mobileno;
+        global $username, $password, $email, $website, $first_name, $last_name, $nickname, $bio, $role, $mobileno, $user_meta_image, $user;
         $username   =   sanitize_user( $_POST['username'] );
         $password   =   esc_attr( $_POST['password'] );
         $email      =   sanitize_email( $_POST['email'] );
@@ -232,6 +326,7 @@ function artist_login_register_password_html() {
         $bio        =   esc_textarea( $_POST['bio'] );
         $role       =   $_POST['role'];
         $mobileno   =   (int)$_POST['mobileno'];
+        $user_meta_image   =   $_FILES['user_meta_image'];
 
         // call @function complete_registration to create the user
         // only when no WP_error is found
@@ -245,7 +340,8 @@ function artist_login_register_password_html() {
         $nickname,
         $bio,
         $role,
-        $mobileno
+        $mobileno,
+        $user_meta_image
         );
     }
  
