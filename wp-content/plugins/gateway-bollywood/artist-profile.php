@@ -69,14 +69,14 @@ function profile_validation($email, $website, $first_name, $last_name, $nickname
         }
 
         // Check Height & Width  
-        if ($max_width && $max_height) {  
+        /*if ($max_width && $max_height) {  
             list($width, $height, $type, $w) = getimagesize($user_meta_image['tmp_name']);  
             if($width > $max_width || $height > $max_height)  
             {  
                 $reg_errors->add( 'user-image-height-width', 'Image is too big! max allowable width is&nbsp;' . $max_width .'px and max allowable height is&nbsp;' . $max_height .'px' );  
                 array_push($photo_error, 2);
             } 
-        } 
+        } */
 
         //var_dump($photo_error);
 
@@ -343,7 +343,7 @@ function artist_profile_html(){
 
                 <div class="clear"></div>
                 <div>
-                    <label for="website">Profile Photo* (Max Width:450px and Max Height:400px)</label>
+                    <label for="website">Profile Photo* (Max:2MB)</label>
                     <input type="file" name="user_meta_image" id="user_meta_image" value="<?php echo ( !empty($user_meta_image) ? $user_meta_image : null ) ?>">
                     <?php
                     $current_profile_photo = get_user_meta($user_id, 'user_meta_image', true);

@@ -8,10 +8,10 @@ function registration_form( $username, $password, $email, $website, $first_name,
  
     echo '
     <form class="register-form" action="' . $_SERVER['REQUEST_URI'] . '" method="post" enctype="multipart/form-data">
-    <div>
+    <div class="role-option">
     <label for="role">Type <strong>*</strong></label>
-    <input type="radio" name="role" value="1" '. ( (!empty($_POST['role']) && $_POST['role'] == "1" ) ? 'checked="checked"' : '' ) .' /> Talent
-    <input type="radio" name="role" value="2" '. ( (!empty($_POST['role']) && $_POST['role'] == "2" ) ? 'checked="checked"' : '' ) .' /> Recruiter
+    <input type="radio" name="role" value="1" '. ( (!empty($_POST['role']) && $_POST['role'] == "1" ) ? 'checked="checked"' : '' ) .' /> <span>Talent</span>
+    <input type="radio" name="role" value="2" '. ( (!empty($_POST['role']) && $_POST['role'] == "2" ) ? 'checked="checked"' : '' ) .' /> <span>Recruiter</span>
     </div>
 
     <div class="clear"></div>
@@ -59,7 +59,7 @@ function registration_form( $username, $password, $email, $website, $first_name,
     <div>
     <label for="photo">Profile Photo*</label>
     <input type="file" name="user_meta_image" id="user_meta_image" value="'.(!empty($_POST['user_meta_image']) ? $_POST['user_meta_image'] : null ).'">
-    <span>(Max Width:450px and Max Height:400px)</span>
+    <span>(Max:2MB)</span>
     </div>
 
     <div class="clear"></div>
@@ -150,14 +150,14 @@ function registration_validation( $username, $password, $email, $website, $first
         }
 
         // Check Height & Width  
-        if ($max_width && $max_height) {  
+        /*if ($max_width && $max_height) {  
             list($width, $height, $type, $w) = getimagesize($user_meta_image['tmp_name']);  
             if($width > $max_width || $height > $max_height)  
             {  
                 $reg_errors->add( 'user-image-height-width', 'Image is too big! max allowable width is&nbsp;' . $max_width .'px and max allowable height is&nbsp;' . $max_height .'px' );  
                 array_push($photo_error, 2);
             } 
-        } 
+        } */
 
         //var_dump($photo_error);
 
@@ -206,33 +206,99 @@ if ( !function_exists('custom_new_user_notification') ) {
   
         $user_login = stripslashes($user->user_login);
         $user_email = stripslashes($user->user_email);
+        $first_name = stripslashes($user->first_name);
+        $last_name = stripslashes($user->last_name);
+        $nickname = stripslashes($user->nickname);
+        $about = stripslashes($user->description);
+        $current_profile_photo = stripslashes($user->user_meta_image);
+
+        $headers[] = 'Content-Type: text/html; charset=UTF-8';
+        //$headers[] = 'Cc: Rutvi Seawind <rutvi@seawindsolution.com>';
+        //$headers[] = 'Cc: Chintan Seawind <chintan@seawindsolution.com>';
   
-        $message  = sprintf(__('New user registration on your blog %s:'), get_bloginfo('name')) . "<br>";
+        $message  = '<b>'.sprintf(__('New user registration on %s:'), get_bloginfo('name')) . "</b><br><br>";
+        
         $message .= sprintf(__('Username: %s'), $user_login) . "<br>";
         $message .= sprintf(__('E-mail: %s'), $user_email) . "<br>";
+        $message .= sprintf(__('First name: %s'), $first_name) . "<br>";
+        $message .= sprintf(__('Last name: %s'), $last_name) . "<br>";
+        $message .= sprintf(__('Nick name: %s'), $nickname) . "<br>";
+        $message .= sprintf(__('About user: %s'), $about) . "<br>";
+        
+        if($role == "2"){
+            $message .= sprintf(__('Role: Recruiter')) . "<br>";
+        } else {
+            $message .= sprintf(__('Role: Talent')) . "<br>";
+        }
+
+        $message .= sprintf(__('User photo:')) . "<br>";
+        $message .= '<img width="150px" height="150px" src="'.site_url().'/wp-content/uploads/profilephotos/'.$user_id.'/'.$current_profile_photo.'"/>';
+
+        $message .= '<br>';
+
+        $message .= '<b>'.__('Regards,')."</b><br>";
+        $message .= '<b>'.sprintf(__("Team GatewayToBollywood")) . "</b><br>";
   
-        @wp_mail(get_option('admin_email'), sprintf(__('[%s] New User Registration'), get_bloginfo('name')), $message);
+        @wp_mail(get_option('admin_email'), sprintf(__('%s Website New User Registration Details'), get_bloginfo('name')), $message , $headers);
   
         if ( empty($plaintext_pass) )
             return;
   
         if($role == "2"){
-            $message  = __('Hi Recruiter,') . "<br>";
+            $message  = sprintf(__("Hi %s,"), $first_name) . "<br><br>";
+
+            $options = get_option( 'gateway_bollywood_options' );
+
+            $message .= sprintf(__("Welcome to %s!"), get_bloginfo('name')) . "<br><br>";
+            
+            $message .= sprintf(__("You're Going Too Good :)")) . "<br><br>";
+            
+            $message .= sprintf(__("Thanks & Congratulations to register with us!!")) . "<br><br>";
+            
+            //$message .= get_page_link($options['gateway_bollywood_field_login_page']) . "<br>";
+            $message .= sprintf(__("Below are your login details :")) . "<br>";
+            $message .= sprintf(__('Username: %s'), $user_login) . "<br>";
+            $message .= sprintf(__('Password: %s'), $plaintext_pass) . "<br><br>";
+            $message .= sprintf(__('You can login here %s.'), get_page_link($options['gateway_bollywood_field_login_page'])) . "<br><br>";
+            //$message .= sprintf(__('If you have any problems, please contact me at %s.'), get_option('admin_email')) . "<br><br>";
+
+            $message .= sprintf(__("For Help")) . "<br>";
+            $message .= sprintf(__("Email : help@gatewaytobollywood.com")) . "<br>";
+            $message .= sprintf(__("Call Us : +91 9927716717")) . "<br><br>";
+            
+            $message .= sprintf(__("Wish You Good Luck in Your Career.")) . "<br><br>";
+
+            $message .= '<b>'.__('Regards,')."</b><br>";
+            $message .= '<b>'.sprintf(__("Team GatewayToBollywood")) . "</b><br>";
+
         } else {
-            $message  = __('Hi Talent,') . "<br>";
+            //$message  = __('Hi Talent,') . "<br><br>";
+            $message  = sprintf(__("Hi %s,"), $first_name) . "<br><br>";
+
+            $options = get_option( 'gateway_bollywood_options' );
+
+            $message .= sprintf(__("Welcome to %s!"), get_bloginfo('name')) . "<br><br>";
+            $message .= sprintf(__("You're Going Too Good :)")) . "<br><br>";
+            $message .= sprintf(__("In Bollywood Industry, Your talent is your face to thousands of correspondent hunting for the best talent. Keeping your GatewayToBollywood portfolio updated is the most effortless way to stand out among others. Also, we suggest you should be ready to get the best openings-always.")) . "<br><br>";
+            $message .= sprintf(__("Thanks & Congratulations to register with us!!")) . "<br><br>";
+            
+            //$message .= get_page_link($options['gateway_bollywood_field_login_page']) . "<br>";
+            $message .= sprintf(__("Below are your login details :")) . "<br>";
+            $message .= sprintf(__('Username: %s'), $user_login) . "<br>";
+            $message .= sprintf(__('Password: %s'), $plaintext_pass) . "<br><br>";
+            $message .= sprintf(__('You can login here %s.'), get_page_link($options['gateway_bollywood_field_login_page'])) . "<br><br>";
+
+            $message .= sprintf(__("For Help")) . "<br>";
+            $message .= sprintf(__("Email : help@gatewaytobollywood.com")) . "<br>";
+            $message .= sprintf(__("Call Us : +91 9927716717")) . "<br><br>";
+            $message .= sprintf(__("Wish You Good Luck in Your Career.")) . "<br><br>";
+
+            $message .= '<b>'.__('Regards,')."</b><br>";
+            $message .= '<b>'.sprintf(__("Team GatewayToBollywood")) . "</b><br>";
+
         }
-
-        $options = get_option( 'gateway_bollywood_options' );
-
-        $message .= sprintf(__("Welcome to %s! You need to wait for admin approval, once you approved by Admin you can login with below details:"), get_bloginfo('name')) . "<br>";
-        $message .= get_page_link($options['gateway_bollywood_field_login_page']) . "<br>";
-        $message .= sprintf(__('Username: %s'), $user_login) . "<br>";
-        $message .= sprintf(__('Password: %s'), $plaintext_pass) . "<br>";
-        $message .= sprintf(__('If you have any problems, please contact me at %s.'), get_option('admin_email')) . "<br><br>";
-        $message .= __('Regards,')."<br>";
-        $message .= get_bloginfo('name');
   
-        wp_mail($user_email, sprintf(__('[%s] Your username and password'), get_bloginfo('name')), $message);
+        wp_mail($user_email, sprintf(__('Your registration Details for %s Website'), get_bloginfo('name')), $message , $headers);
   
     }
 }

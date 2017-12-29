@@ -24,6 +24,9 @@
 			global $wpdb;
 
 			if ( isset($_POST['submit'] ) ) {
+
+				$user_email = stripslashes($current_user->user_email);
+				$first_name = stripslashes($current_user->first_name);
 				
 				global $reg_errors;
 				$reg_errors = new WP_Error;
@@ -46,6 +49,30 @@
 			    if ( 1 > count( $reg_errors->get_error_messages() ) ) {
 
 			        wp_set_password($pass1, $user_ID);
+
+			        $headers[] = 'Content-Type: text/html; charset=UTF-8';
+			        //$headers[] = 'Cc: Rutvi Seawind <rutvi@seawindsolution.com>';
+			        //$headers[] = 'Cc: Chintan Seawind <chintan@seawindsolution.com>';
+
+			        $message  = sprintf(__("Hi %s,"), $first_name) . "<br><br>";
+
+		            $options = get_option( 'gateway_bollywood_options' );
+
+		            $message .= sprintf(__("Your password has been changed successfully")) . "<br><br>";
+		            
+		            $message .= sprintf(__("Below is your new password :")) . "<br>";
+		            $message .= sprintf(__('New Password: %s'), $pass1) . "<br><br>";
+		            $message .= sprintf(__('You can login here %s.'), get_page_link($options['gateway_bollywood_field_login_page'])) . "<br><br>";
+
+		            $message .= sprintf(__("For Help")) . "<br>";
+		            $message .= sprintf(__("Email : help@gatewaytobollywood.com")) . "<br>";
+		            $message .= sprintf(__("Call Us : +91 9927716717")) . "<br><br>";
+		            $message .= sprintf(__("Wish You Good Luck in Your Career.")) . "<br><br>";
+
+		            $message .= '<b>'.__('Regards,')."</b><br>";
+		            $message .= '<b>'.sprintf(__("Team GatewayToBollywood")) . "</b><br>";
+
+		            wp_mail($user_email, sprintf(__('Change Password for %s Website'), get_bloginfo('name')), $message , $headers);
 
 			        echo '<div class="alert alert-success alert-dismissable">';
 	                echo 'New password set successfully. Now you have to login with new password.';
@@ -87,7 +114,7 @@
 	                                <input type="password" name="pass2" id="pass2" class="input" size="20" value="" autocomplete="off" />
 	                            </div>
 	                             
-	                            <div class="description"><?php echo wp_get_password_hint(); ?></div>
+	                            <div class="description"><?php //echo wp_get_password_hint(); ?></div>
 	                             
 	                            <div class="login_fields">
 	                                <input type="submit" name="submit" value="<?php _e('Reset my password'); ?>" class="user-submit" tabindex="1002" />
