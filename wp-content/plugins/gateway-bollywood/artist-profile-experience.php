@@ -5,15 +5,15 @@ function profile_experience_validation($years_experience, $months_experience, $w
     $reg_errors = new WP_Error;
 
     if (!isset($years_experience) || empty($years_experience) ) {
-        $reg_errors->add( 'years_empty_invalid', 'Please enter years of experience' );
+        //$reg_errors->add( 'years_empty_invalid', 'Please enter years of experience' );
     } elseif (!is_numeric($years_experience) || ($years_experience < 0 || $years_experience > 100)) {
-        $reg_errors->add( 'years_invalid', 'Please enter valid years of experience' );
+        //$reg_errors->add( 'years_invalid', 'Please enter valid years of experience' );
     }
 
     if (!isset($months_experience) || empty($months_experience) ) {
-        $reg_errors->add( 'months_empty_invalid', 'Please enter months of experience' );
+        //$reg_errors->add( 'months_empty_invalid', 'Please enter months of experience' );
     } elseif (!is_numeric($months_experience) || ($months_experience < 1 || $months_experience > 12)) {
-        $reg_errors->add( 'months_invalid', 'Please enter valid months of experience' );
+        //$reg_errors->add( 'months_invalid', 'Please enter valid months of experience' );
     }
 
     if (!isset($work_description) || empty($work_description) ) {

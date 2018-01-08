@@ -288,9 +288,10 @@ html body ul.tabs_login li.active_login a { font-weight: bold; }
                         </label>
                     </div>
                     <?php do_action('login_form'); ?>
-                    <input type="submit" name="user-submit" value="<?php _e('Login'); ?>" tabindex="14" class="user-submit" />
+                    <input type="submit" name="user-submit" value="<?php _e('Login'); ?>" tabindex="14" class="user-submit" style="display: inline-block !important;" />
                     <input type="hidden" name="redirect_to" value="<?php echo site_url().'/profile'; ?>" />
                     <input type="hidden" name="user-cookie" value="1" />
+                    <a class="user-submit" href="<?php echo site_url() ?>/lostpassword">Forgot Password?</a>
                 </div>
             </form>
         </div>
@@ -523,7 +524,7 @@ function artist_resetpassword_html(){
                                 <input type="password" name="pass2" id="pass2" class="input" size="20" value="" autocomplete="off" />
                             </div>
                              
-                            <div class="description"><?php echo wp_get_password_hint(); ?></div>
+                            <div class="description"><?php //echo wp_get_password_hint(); ?></div>
                              
                             <div class="login_fields">
                                 <input type="submit" name="user-submit" value="<?php _e('Reset my password'); ?>" class="user-submit" tabindex="1002" />

@@ -82,8 +82,8 @@ $table_prefix  = 'wp_';
  */
 define('WP_DEBUG', false);
 
-define('WP_HOME','http://localhost/wordpress/gatewaytobollywood/');
-define('WP_SITEURL','http://localhost/wordpress/gatewaytobollywood/');
+define('WP_HOME','http://192.168.1.9/wordpress/gatewaytobollywood/');
+define('WP_SITEURL','http://192.168.1.9/wordpress/gatewaytobollywood/');
 define('RELOCATE',true);
 
 /* That's all, stop editing! Happy blogging. */

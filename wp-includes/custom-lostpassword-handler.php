@@ -7,16 +7,16 @@ $reg_errors = new WP_Error;
 
 if ( isset($_POST['user-submit']) && $_POST['user-submit'] == "Reset my password" ) {
 
-	$user_login = $_POST['user_login'];
+    $user_login = $_POST['user_login'];
     $redirect_to       =   $_POST['redirect_to'];
     $user_cookie       =   $_POST['user-cookie'];
 
 
-   	//var_dump($redirect_to);exit;
+    //var_dump($redirect_to);exit;
 
     if ( empty( $user_login ) ) {
         $reg_errors->add('field', 'Please enter your email or username');
-    	$_SESSION['login_error_msgs'][] = "Please enter your email or username";
+        $_SESSION['login_error_msgs'][] = "Please enter your email or username";
     }
 
     if ( 1 > count( $reg_errors->get_error_messages() ) ) {
@@ -51,7 +51,7 @@ if ( isset($_POST['user-submit']) && $_POST['user-submit'] == "Reset my password
             
             wp_redirect($redirect_to);
         } else{
-        	
+            
             $redirect_url = $redirect_to;
             //$redirect_url = add_query_arg( 'checkemail', 'confirm', $redirect_url );
             $_SESSION['login_success_msgs'][] = "Please check your email. We send you reset password link";
@@ -106,13 +106,16 @@ function retrieve_password() {
         return $key;
     }
 
-    $message = __('Someone has requested a password reset for the following account:') . "\r\n\r\n";
-    $message .= network_home_url( '/' ) . "\r\n\r\n";
+    $message = __('You have requested a password reset for the following account:') . "\r\n\r\n";
+    //$message .= network_home_url( '/' ) . "\r\n\r\n";
     $message .= sprintf(__('Username: %s'), $user_login) . "\r\n\r\n";
-    $message .= __('If this was a mistake, just ignore this email and nothing will happen.') . "\r\n\r\n";
+    //$message .= __('If this was a mistake, just ignore this email and nothing will happen.') . "\r\n\r\n";
     $message .= __('To reset your password, visit the following address:') . "\r\n\r\n";
     //$message .= '<' . network_site_url("wp-login.php?action=rp&key=$key&login=" . rawurlencode($user_login), 'login') . ">\r\n";
-    $message .= '<' . site_url("resetpassword/?action=rp&key=$key&login=" . rawurlencode($user_login), 'login') . ">\r\n";
+    $message .= '<' . site_url("resetpassword/?action=rp&key=$key&login=" . rawurlencode($user_login), 'login') . ">\r\n\r\n";
+    
+    $message .= '<b>'.__('Regards,')."</b>"."\r\n";
+    $message .= '<b>'.sprintf(__("Team GatewayToBollywood")) . "</b>"."\r\n\r\n";
 
     if ( is_multisite() ) {
         $blogname = get_network()->site_name;
@@ -125,7 +128,7 @@ function retrieve_password() {
     }
 
     /* translators: Password reset email subject. 1: Site name */
-    $title = sprintf( __('[%s] Password Reset'), $blogname );
+    $title = sprintf( __('%s Website Password Reset'), $blogname );
 
     /**
      * Filters the subject of the password reset email.

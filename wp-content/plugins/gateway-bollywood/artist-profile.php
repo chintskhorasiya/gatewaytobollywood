@@ -96,8 +96,8 @@ function profile_validation($email, $website, $first_name, $last_name, $nickname
         if(!empty(get_user_meta( $user_ID, 'user_meta_image', true)) || !empty($_FILES['user_meta_image']['name'])){
             
         } else {
-            $reg_errors->add( 'user-image-type', 'Profile Photo should be required and image type only (jpg, gif, png)!' );  
-            array_push($photo_error, 3);
+            //$reg_errors->add( 'user-image-type', 'Profile Photo should be required and image type only (jpg, gif, png)!' );  
+            //array_push($photo_error, 3);
         }
     }
 
@@ -343,7 +343,7 @@ function artist_profile_html(){
 
                 <div class="clear"></div>
                 <div>
-                    <label for="website">Profile Photo* (Max:2MB)</label>
+                    <label for="website">Profile Photo (Max:2MB)</label>
                     <input type="file" name="user_meta_image" id="user_meta_image" value="<?php echo ( !empty($user_meta_image) ? $user_meta_image : null ) ?>">
                     <?php
                     $current_profile_photo = get_user_meta($user_id, 'user_meta_image', true);
@@ -538,16 +538,16 @@ function artist_profile_html(){
                 <div class="clear"></div>
                 <div>
                     <input type="submit" name="submit" value="Save And Continue" />
-                </div>
-                <?php
-                $options = get_option( 'gateway_bollywood_options' );
-                
-                if($saved){
-                    ?>
-                    <a class="back-btn" href="<?php echo get_page_link($options['gateway_bollywood_field_profileinterest_page']) ?>">Go to next page</a>
                     <?php
-                }
-                ?>
+                    $options = get_option( 'gateway_bollywood_options' );
+                    
+                    if($saved){
+                        ?>
+                        <a class="back-btn" href="<?php echo get_page_link($options['gateway_bollywood_field_profileinterest_page']) ?>">Go to next page</a>
+                        <?php
+                    }
+                    ?>
+                </div>
             
             </form>
         
